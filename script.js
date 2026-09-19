@@ -1,8 +1,15 @@
 const grid = document.querySelector('#grid');
 const gridButton = document.querySelector('#gridButton');
 const drawStatus = document.querySelector('#drawStatus');
+const eraserButton = document.querySelector('#eraserButton');
+const clearButton = document.querySelector('#clearButton');
+const colorPicker = document.querySelector('#colorPicker');
+
+const originalSquareColor = 'white';
 
 let drawingEnabled = true;
+let eraserEnabled = false;
+let currentColor = colorPicker.value;
 
 createGrid(16);
 
@@ -26,6 +33,23 @@ gridButton.addEventListener('click', function(){
     createGrid(gridSize);
 })
 
+eraserButton.addEventListener('click', function() {
+    eraserEnabled = !eraserEnabled;
+    eraserButton.textContent = eraserEnabled ? 'Eraser: ON' : 'Eraser: OFF';
+    eraserButton.classList.toggle('active', eraserEnabled);
+})
+
+clearButton.addEventListener('click', function() {
+    const squares = grid.querySelectorAll('div');
+    squares.forEach(function(square) {
+        square.style.backgroundColor = originalSquareColor;
+    });
+})
+
+colorPicker.addEventListener('input', function() {
+    currentColor = colorPicker.value;
+})
+
 function createGrid(gridSize) {
     for (let i = 0; i < gridSize*gridSize; i++) {
         const square = document.createElement('div');
@@ -33,8 +57,12 @@ function createGrid(gridSize) {
         square.style.height = `${500 / gridSize}px`;
 
         square.addEventListener('mouseover', function() {
-            if (drawingEnabled) {
-                square.style.backgroundColor = 'black';
+            if (!drawingEnabled) return;
+
+            if (eraserEnabled) {
+                square.style.backgroundColor = originalSquareColor;
+            } else {
+                square.style.backgroundColor = currentColor;
             }
         });
 

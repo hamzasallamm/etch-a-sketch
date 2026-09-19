@@ -38,6 +38,15 @@ button:active {
     transform: scale(0.97);
 }
 
+button.active {
+    background-color: #3a7ca5;
+    box-shadow: 0 4px 10px rgba(58, 124, 165, 0.35);
+}
+
+button.active:hover {
+    background-color: #2f6486;
+}
+
 #grid {
     width: 500px;
     height: 500px;
@@ -49,4 +58,5 @@ button:active {
 #grid div {
     box-sizing: border-box;
     border: 1px solid black;
+    background-color: white;
 }
