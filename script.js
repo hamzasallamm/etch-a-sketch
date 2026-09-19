@@ -18,6 +18,11 @@ function createGrid(gridSize) {
         const square = document.createElement('div');
         square.style.width = `${500 / gridSize}px`;
         square.style.height = `${500 / gridSize}px`;
+
+        square.addEventListener('mouseover', function() {
+            square.style.backgroundColor = 'black';
+        });
+
         grid.appendChild(square);
     }
 }
